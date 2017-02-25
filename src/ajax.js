@@ -52,12 +52,20 @@ export function authorize(){
     }
   })
   .then(function(response){
-      authVal=response.code;
-      postRefresh(response.code);
+      //authVal=response.code;
+      //postRefresh(response.code);
       console.log(response.data);
       console.log(response.status);
   });
 };
+
+export function getAuthorizeCode(){
+  axios.get('/spotify')
+  .then(function(response){
+    authVal = response.code;
+    console.log(response.data);
+  });
+}
 
 export function postRefresh(code){
   // Get refresh and Access tokens
@@ -78,7 +86,7 @@ export function postRefresh(code){
 
 export function newPlaylist(name){
   // Make a playlist
-  axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists',{
+  axios.post('https://api.spotify.com/v1/users/'+userID+'/playlists',{
     name: name,
   },header)
   .then(function (response) {
@@ -91,7 +99,11 @@ export function newPlaylist(name){
 };
 
 export function getUserID(authVal){
-  
+  axios.get('https://api.spotify.com/v1/me',header)
+  .then(function(response) {
+    userID=response.id;
+  });
+
 };
 
 export function addSong(song){
