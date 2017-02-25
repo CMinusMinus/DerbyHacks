@@ -23,7 +23,8 @@ var header= {
 
 // Lyrics (Using google custom search)
 
-export function getSongs(query){
+export function getSongs(query, callback){
+  let results;
   axios.get('https://www.googleapis.com/customsearch/v1?', {
     params: {
       key: googleKey,
@@ -32,11 +33,7 @@ export function getSongs(query){
       start: 1
     }
   })
-  .then(function(response){
-      console.log(response.data);
-      console.log(response.status);
-      return response.data;
-  });
+  .then(callback);
 };
 
 export function getSong(){

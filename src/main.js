@@ -28,11 +28,17 @@ class App extends React.Component {
     this.getResults = this.getResults.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
   getResults() {
-    const results = getSongs(this.state.textValue);
-    this.setState({
-      results
+    const results = getSongs(this.state.textValue, (response) => {
+      this.setState({
+        results: response.data
+      });
     });
+    // this.setState({
+    //   results: results
+    // });
+    console.log("results", results)
   }
 
   handleInputChange(e) {
@@ -60,11 +66,11 @@ class App extends React.Component {
           <br/>
           <Card>
             <CardHeader style={cardhead}>
-              <SearchBar handleChange={this.handleInputChange} handleClick={this.getResults}/>
+              <SearchBar handleChange={this.handleInputChange} handleClick={this.getResults} />
             </CardHeader>
-            <br/><br/><br/>
+            <br/><br/>
             <div>
-              <Results />
+              <Results results={this.state.results} />
             </div>
           </Card>
         </div>

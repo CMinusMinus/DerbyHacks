@@ -9,12 +9,6 @@ import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
 export default class Results extends React.Component {
-  handleChange() {
-    this.props.onUserInput(
-      this.refs.filterTextInput.value
-    );
-  }
-
   render() {
     const paper = {
       height: '25%',
@@ -24,15 +18,19 @@ export default class Results extends React.Component {
       textAlign: 'center',
       display: 'inline-block',
     };
-
+    console.log("props",this.props.results);
     return (
       <List>
         <Subheader>Here's what we found:</Subheader>
-        <ListItem primaryText="Song 1" /><Divider/>
-        <ListItem primaryText="Song 2" /><Divider/>
-        <ListItem primaryText="Song 3" /><Divider/>
-        <ListItem primaryText="Song 4" /><Divider/>
-        <ListItem primaryText="Song 5" />
+        {this.props.results
+          && this.props.results.items
+          ? this.props.results.items.map(item => (
+            <a href="#" target="_blank" style={{ linkStyle: 'none' }}>
+              <ListItem primaryText={item.title} /><Divider/>
+            </a>
+          ))
+          : null
+        }
       </List>
     );
   }
