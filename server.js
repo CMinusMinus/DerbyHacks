@@ -16,6 +16,11 @@ app.get('/', function(req,res) {
   res.sendFile(path.join(__dirname + 'index.html'));
 });
 
+app.get('/spotify', function(req,res) {
+  res.send(req.query);
+  res.redirect('/');
+});
+
 app.listen(port);
 console.log('Magic happens on port ' + port);
 exports = module.exports = app;
