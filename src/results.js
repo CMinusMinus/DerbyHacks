@@ -24,7 +24,7 @@ export default class Results extends React.Component {
         <Subheader>Here's what we found:</Subheader>
         {this.props.results
           ? this.props.results.map(item => (
-            <a href={item.link} target="_blank" style={{ linkStyle: 'none' }}>
+            <a key={item.name} href={item.link} target="_blank" style={{ linkStyle: 'none' }}>
               <ListItem primaryText={item.title} /><Divider/>
             </a>
           ))
