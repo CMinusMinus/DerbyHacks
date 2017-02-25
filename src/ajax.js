@@ -26,10 +26,10 @@ export function getSongs(query){
             q: query
         }
     }) 
-        .then(function(response){
+    .then(function(response){
             console.log(response.data);
             console.log(response.status);
-        });
+    });
 };
 
 export function getSong(){
@@ -46,10 +46,10 @@ export function authorize(){
             redirect_uri: redirect_uri
         }
     })
-        .then(function(response){
+    .then(function(response){
             console.log(response.data);
             console.log(response.status);
-        })
+    });
 };
 
 export function postRefresh(){
@@ -61,10 +61,10 @@ export function postRefresh(){
         client_id: client_id,
         client_secret: client_secret
     })
-        .then(function (response) {
+    .then(function (response) {
         console.log(response);
     })
-        .catch(function (error) {
+    .catch(function (error) {
         console.log(error);
     });
 };
@@ -74,19 +74,25 @@ export function newPlaylist(name){
     axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists',{
         name: name,
     },header)
-        .then(function (response) {
+    .then(function (response) {
         console.log(response);
     })
-        .catch(function (error) {
+    .catch(function (error) {
         console.log(error);
     });
 };
 
-export function addSong(songs){
+export function addSong(song){
     // Add a song to the playlist
-    axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks'),{
-
-    }
+    axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',{
+        uris:song
+    },header)
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 };
 
 export function findSong(title,artist){
