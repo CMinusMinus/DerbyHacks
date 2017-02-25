@@ -19,10 +19,13 @@
   "homepage": "https://github.com/CMinusMinus/DerbyHacks#readme",
   "dependencies": {
     "express": "^4.14.1",
+    "material-ui": "^0.17.0",
     "method-override": "^2.3.7",
     "morgan": "^1.8.1",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1",
     "serve-static": "^1.11.2"
   },
   "devDependencies": {
