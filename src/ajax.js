@@ -8,7 +8,7 @@ var googleSearch = '005367748168396004507:_mzf0ltwpxs';
 // Spotify vars
 var client_id = '27eb8b96e2de49f5b58e337bc2b6d638'; // Your client id
 var client_secret = 'c62ace7bd7284c8c8fe1bbda40bad08a'; // Your secret
-var redirect_uri = 'http://localhost/'; // Your redirect uri
+var redirect_uri = 'http://localhost/spotify'; // Your redirect uri
 var header= {
     headers: {
         'Authorization': authVal,
@@ -82,6 +82,23 @@ export function newPlaylist(name){
     });
 };
 
-export function addSong(){
+export function addSong(songs){
     // Add a song to the playlist
+    axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks'),{
+
+    }
+};
+
+export function findSong(title,artist){
+    //find a song and add it to the playlist
+    axios.get('https://api.spotify.com/v1/search',{
+        params: {
+            q:'track:'+title+' artist:'+artist,
+            type: track,
+            limit: '1'
+        }
+    })
+    .then(function(response){
+        addSong(response.uri);
+    });
 };
