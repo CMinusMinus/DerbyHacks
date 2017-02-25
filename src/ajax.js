@@ -29,6 +29,7 @@ export function getSongs(query){
       key: googleKey,
       cx: googleSearch,
       q: query,
+      fields: 'items(title)',
       start: 1
     }
   })
