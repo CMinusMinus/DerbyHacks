@@ -20,13 +20,23 @@ export function getSongs(query){
         });
 };
 
-export function getSong(){};
+export function getSong(){
+    // Parse results here?
+};
 
 // Spotify stuff
-export function authorize(){};
+export function authorize(){
+    // Have them login and get authorized
+};
 
-export function postRefresh(){};
+export function postRefresh(){
+    // Get refresh and Access tokens
+};
 
-export function newPlaylist(){};
+export function newPlaylist(){
+    // Make a playlist
+};
 
-export function addSong(){};
+export function addSong(){
+    // Add a song to the playlist
+};
