@@ -23815,6 +23815,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getSongs = getSongs;
 exports.getSong = getSong;
 exports.authorize = authorize;
+exports.getAuthorizeCode = getAuthorizeCode;
 exports.postRefresh = postRefresh;
 exports.newPlaylist = newPlaylist;
 exports.getUserID = getUserID;
@@ -23850,7 +23851,8 @@ function getSongs(query) {
     params: {
       key: googleKey,
       cx: googleSearch,
-      q: query
+      q: query,
+      start: 1
     }
   }).then(function (response) {
     console.log(response.data);
@@ -23865,19 +23867,26 @@ function getSong() {
 // Spotify stuff
 function authorize() {
   // Have them login and get authorized
-  axios.get('https://accounts.spotify.com/authorize', {
+  axios.get('https://localhost/https://accounts.spotify.com/authorize', {
     params: {
       client_id: client_id,
       response_type: 'code',
       redirect_uri: redirect_uri
     }
   }).then(function (response) {
-    authVal = response.code;
-    postRefresh(response.code);
+    //authVal=response.code;
+    //postRefresh(response.code);
     console.log(response.data);
     console.log(response.status);
   });
 };
+
+function getAuthorizeCode() {
+  axios.get('/spotify').then(function (response) {
+    authVal = response.code;
+    console.log(response.data);
+  });
+}
 
 function postRefresh(code) {
   // Get refresh and Access tokens
@@ -23896,7 +23905,7 @@ function postRefresh(code) {
 
 function newPlaylist(name) {
   // Make a playlist
-  axios.post('https://api.spotify.com/v1/users/' + user_id + '/playlists', {
+  axios.post('https://api.spotify.com/v1/users/' + userID + '/playlists', {
     name: name
   }, header).then(function (response) {
     playlistID = response.id;
@@ -23906,7 +23915,11 @@ function newPlaylist(name) {
   });
 };
 
-function getUserID(authVal) {};
+function getUserID(authVal) {
+  axios.get('https://api.spotify.com/v1/me', header).then(function (response) {
+    userID = response.id;
+  });
+};
 
 function addSong(song) {
   // Add a song to the playlist
@@ -24008,7 +24021,8 @@ var SearchBar = function (_React$Component) {
           _react2.default.createElement(_materialUi.TextField, {
             id: 'SearchBar',
             hintText: 'Search for lyrics...',
-            fullWidth: true
+            fullWidth: true,
+            onChange: this.props.handleChange
           })
         ),
         _react2.default.createElement(
@@ -24016,7 +24030,8 @@ var SearchBar = function (_React$Component) {
           { style: butt },
           _react2.default.createElement(_materialUi.RaisedButton, {
             label: 'Find Songs!',
-            primary: true
+            primary: true,
+            onTouchTap: this.props.handleClick
           })
         )
       );
@@ -63807,8 +63822,6 @@ var _searchbar2 = _interopRequireDefault(_searchbar);
 
 var _ajax = __webpack_require__(236);
 
-var _ajax2 = _interopRequireDefault(_ajax);
-
 var _MuiThemeProvider = __webpack_require__(146);
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
@@ -63834,13 +63847,35 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = {
+      results: null,
+      textValue: ''
+    };
+
+    _this.getResults = _this.getResults.bind(_this);
+    _this.handleInputChange = _this.handleInputChange.bind(_this);
+    return _this;
   }
 
   _createClass(App, [{
+    key: 'getResults',
+    value: function getResults() {
+      var results = (0, _ajax.getSongs)(this.state.textValue);
+    }
+  }, {
+    key: 'handleInputChange',
+    value: function handleInputChange(e) {
+      this.setState({
+        textValue: e.target.value
+      });
+      console.log(this.state.textValue);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -63854,7 +63889,7 @@ var App = function (_React$Component) {
             iconElementLeft: null
           }),
           _react2.default.createElement('br', null),
-          _react2.default.createElement(_searchbar2.default, { onUserInput: function onUserInput() {} })
+          _react2.default.createElement(_searchbar2.default, { handleChange: this.handleInputChange, handleClick: this.getResults })
         )
       );
     }

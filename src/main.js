@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './searchbar';
 
-import AJAX from './ajax';
+import {getSongs} from './ajax';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {AppBar} from 'material-ui';
@@ -13,6 +13,30 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      results: null,
+      textValue: ''
+    };
+
+    this.getResults = this.getResults.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  getResults() {
+    const results = getSongs(this.state.textValue);
+    this.setState({
+      results
+    });
+  }
+
+  handleInputChange(e) {
+    this.setState({
+      textValue: e.target.value
+    });
+    console.log(this.state.textValue);
+  }
+
   render() {
     return (
       <MuiThemeProvider>
@@ -22,7 +46,8 @@ class App extends React.Component {
           iconElementLeft={null}
           />
           <br/>
-          <SearchBar onUserInput={()=>{}}/>
+          <SearchBar handleChange={this.handleInputChange} handleClick={this.getResults}/>
+
         </div>
       </MuiThemeProvider>
     );

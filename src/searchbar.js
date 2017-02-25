@@ -36,12 +36,14 @@ export default class SearchBar extends React.Component {
               id="SearchBar"
               hintText="Search for lyrics..."
               fullWidth
+              onChange={this.props.handleChange}
             />
           </div>
           <div style={butt}>
             <RaisedButton
               label="Find Songs!"
               primary={true}
+              onTouchTap={this.props.handleClick}
             />
           </div>
         </Paper>

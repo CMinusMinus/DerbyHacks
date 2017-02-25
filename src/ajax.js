@@ -19,7 +19,7 @@ var header= {
     'Authorization': authVal,
     'Content-Type': 'application/json'
   }
-}; 
+};
 
 // Lyrics (Using google custom search)
 
@@ -28,12 +28,14 @@ export function getSongs(query){
     params: {
       key: googleKey,
       cx: googleSearch,
-      q: query
+      q: query,
+      start: 1
     }
-  }) 
+  })
   .then(function(response){
       console.log(response.data);
       console.log(response.status);
+      return response.data;
   });
 };
 
@@ -44,7 +46,7 @@ export function getSong(){
 // Spotify stuff
 export function authorize(){
   // Have them login and get authorized
-  axios.get('https://accounts.spotify.com/authorize', {
+  axios.get('https://localhost/https://accounts.spotify.com/authorize', {
     params: {
       client_id: client_id,
       response_type: 'code',
