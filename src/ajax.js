@@ -11,21 +11,22 @@ var client_secret = 'c62ace7bd7284c8c8fe1bbda40bad08a'; // Your secret
 var redirect_uri = 'REDIRECT_URI'; // Your redirect uri
 
 // Lyrics (Using google custom search)
-function getSongs(query){
+
+export function getSongs(query){
     axios.get('https://www.googleapis.com/customsearch/v1?' + googleKey + '&' + googleSearch + '&' + 'q=' + query)
         .then(function(response){
             console.log(response.data);
             console.log(response.status);
-        })
+        });
 };
 
-function getSong(){};
+export function getSong(){};
 
 // Spotify stuff
-function authorize(){};
+export function authorize(){};
 
-function postRefresh(){};
+export function postRefresh(){};
 
-function newPlaylist(){};
+export function newPlaylist(){};
 
-function addSong(){};
+export function addSong(){};

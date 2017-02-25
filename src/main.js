@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './searchbar';
+import AJAX from './ajax';
+
 
 class App extends React.Component {
   render() {
