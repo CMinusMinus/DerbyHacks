@@ -10,10 +10,10 @@ var port = 80;
 app.use(morgan('dev'));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use('/', express.static(__dirname + '/build'));
+app.use('/', express.static(__dirname + '/'));
 
 app.get('*', function(req,res) {
-  res.sendFile(path.join(__dirname + 'index.html'));
+  res.sendFile(path.join(__dirname + '/build/index.html'));
 });
 
 app.get('/spotify', function(req, res, next) {
