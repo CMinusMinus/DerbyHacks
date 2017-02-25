@@ -23,8 +23,7 @@ export default class Results extends React.Component {
       <List>
         <Subheader>Here's what we found:</Subheader>
         {this.props.results
-          && this.props.results.items
-          ? this.props.results.items.map(item => (
+          ? this.props.results.map(item => (
             <a href="#" target="_blank" style={{ linkStyle: 'none' }}>
               <ListItem primaryText={item.title} /><Divider/>
             </a>

@@ -23,17 +23,28 @@ var header= {
 
 // Lyrics (Using google custom search)
 
+
 export function getSongs(query, callback){
-  let results;
+  axios.all([
+    axios.get('https://www.googleapis.com/customsearch/v1?', {
+    params: {
+      key: googleKey,
+      cx: googleSearch,
+      q: query,
+      fields: 'items(title,link)',
+      start: 1
+    }
+  }),
   axios.get('https://www.googleapis.com/customsearch/v1?', {
     params: {
       key: googleKey,
       cx: googleSearch,
       q: query,
-      start: 1
+      fields: 'items(title,link)',
+      start: 11
     }
-  })
-  .then(callback);
+  })])
+  .then(axios.spread(callback));
 };
 
 export function getSong(){

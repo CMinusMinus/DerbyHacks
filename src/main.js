@@ -30,15 +30,11 @@ class App extends React.Component {
   }
 
   getResults() {
-    const results = getSongs(this.state.textValue, (response) => {
+    const results = getSongs(this.state.textValue, (pageOne, pageTwo) => {
       this.setState({
-        results: response.data
+        results: [...pageOne.data.items, ...pageTwo.data.items]
       });
     });
-    // this.setState({
-    //   results: results
-    // });
-    console.log("results", results)
   }
 
   handleInputChange(e) {
