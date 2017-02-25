@@ -12,13 +12,12 @@ app.use(morgan('dev'));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use('/', express.static(__dirname + '/build'));
 
-app.get('/', function(req,res) {
+app.get('*', function(req,res) {
   res.sendFile(path.join(__dirname + 'index.html'));
 });
 
-app.get('/spotify', function(req,res) {
+app.get('/spotify', function(req, res, next) {
   res.send(req.query);
-  res.redirect('/');
 });
 
 app.listen(port);
