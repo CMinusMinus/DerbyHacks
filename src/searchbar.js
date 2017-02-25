@@ -12,41 +12,31 @@ export default class SearchBar extends React.Component {
   render() {
     const paper = {
       height: '25%',
-      width: '40%',
-      marginLeft: '30%',
-      marginRight: '30%',
+      width: '60%',
+      marginLeft: '20%',
+      marginRight: '20%',
       textAlign: 'center',
       display: 'inline-block',
     };
 
-    const search = {
-      marginRight: '5%',
-      marginLeft: '5%',
-      width: '90%',
-    };
-
-    const butt = {
-      margin: 12,
-    }
-
     return (
-        <Paper style={paper} zDepth={2}>
-          <div style={search}>
-            <TextField
-              id="SearchBar"
-              hintText="Search for lyrics..."
-              fullWidth
-              onChange={this.props.handleChange}
-            />
-          </div>
-          <div style={butt}>
-            <RaisedButton
-              label="Find Songs!"
-              primary={true}
-              onTouchTap={this.props.handleClick}
-            />
-          </div>
-        </Paper>
+      <div>
+        <div>
+          <TextField
+            id="SearchBar"
+            hintText="Search for lyrics..."
+            fullWidth
+            onChange={this.props.handleChange}
+          />
+        </div>
+        <div>
+          <RaisedButton
+            label="Find Songs!"
+            primary={true}
+            onTouchTap={this.props.handleClick}
+          />
+        </div>
+      </div>
     );
   }
 }
