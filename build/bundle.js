@@ -23821,6 +23821,9 @@ exports.newPlaylist = newPlaylist;
 exports.getUserID = getUserID;
 exports.addSong = addSong;
 exports.findSong = findSong;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var axios = __webpack_require__(239);
 axios.get('https://api.github.com/users/codeheaven-io');
 
@@ -23847,17 +23850,43 @@ var header = {
 // Lyrics (Using google custom search)
 
 function getSongs(query) {
+  /*
   axios.get('https://www.googleapis.com/customsearch/v1?', {
     params: {
       key: googleKey,
       cx: googleSearch,
       q: query,
+      fields: 'items(title)',
       start: 1
     }
-  }).then(function (response) {
-    console.log(response.data);
-    console.log(response.status);
+  })
+  .then(function(response){
+      console.log(response.data);
+      console.log(response.status);
+      return response.data;
   });
+  */
+  axios.all([axios.get('https://www.googleapis.com/customsearch/v1?', {
+    params: {
+      key: googleKey,
+      cx: googleSearch,
+      q: query,
+      fields: 'items(title,link)',
+      start: 1
+    }
+  }), axios.get('https://www.googleapis.com/customsearch/v1?', {
+    params: {
+      key: googleKey,
+      cx: googleSearch,
+      q: query,
+      fields: 'items(title,link)',
+      start: 11
+    }
+  })]).then(axios.spread(function (pageOne, pageTwo) {
+    console.log('Page 1', pageOne.data.items);
+    console.log('Page 2', pageTwo.data.items);
+    return [].concat(_toConsumableArray(pageOne.data.items), _toConsumableArray(pageTwo.data.items));
+  }));
 };
 
 function getSong() {
@@ -63866,6 +63895,9 @@ var App = function (_React$Component) {
     key: 'getResults',
     value: function getResults() {
       var results = (0, _ajax.getSongs)(this.state.textValue);
+      this.setState({
+        results: results
+      });
     }
   }, {
     key: 'handleInputChange',

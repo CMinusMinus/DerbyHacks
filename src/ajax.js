@@ -24,20 +24,30 @@ var header= {
 // Lyrics (Using google custom search)
 
 export function getSongs(query){
+  axios.all([
+    axios.get('https://www.googleapis.com/customsearch/v1?', {
+    params: {
+      key: googleKey,
+      cx: googleSearch,
+      q: query,
+      fields: 'items(title,link)',
+      start: 1
+    }
+  }),
   axios.get('https://www.googleapis.com/customsearch/v1?', {
     params: {
       key: googleKey,
       cx: googleSearch,
       q: query,
-      fields: 'items(title)',
-      start: 1
+      fields: 'items(title,link)',
+      start: 11
     }
-  })
-  .then(function(response){
-      console.log(response.data);
-      console.log(response.status);
-      return response.data;
-  });
+  })])
+  .then(axios.spread(function(pageOne, pageTwo) {
+    console.log('Page 1', pageOne.data.items);
+    console.log('Page 2', pageTwo.data.items);
+    return [...pageOne.data.items, ...pageTwo.data.items]
+  }));
 };
 
 export function getSong(){
