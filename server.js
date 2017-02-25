@@ -10,7 +10,7 @@ var port = 80;
 app.use(morgan('dev'));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use('/', express.static(__dirname + '/src'));
+app.use('/', express.static(__dirname + '/build'));
 
 app.get('/', function(req,res) {
   res.sendFile(path.join(__dirname + 'index.html'));
