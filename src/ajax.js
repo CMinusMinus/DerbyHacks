@@ -9,6 +9,12 @@ var googleSearch = '005367748168396004507:_mzf0ltwpxs';
 var client_id = '27eb8b96e2de49f5b58e337bc2b6d638'; // Your client id
 var client_secret = 'c62ace7bd7284c8c8fe1bbda40bad08a'; // Your secret
 var redirect_uri = 'http://localhost/'; // Your redirect uri
+var header= {
+    headers: {
+        'Authorization': authVal,
+        'Content-Type': 'application/json'
+    }
+}; 
 
 // Lyrics (Using google custom search)
 
@@ -55,10 +61,25 @@ export function postRefresh(){
         client_id: client_id,
         client_secret: client_secret
     })
+        .then(function (response) {
+        console.log(response);
+    })
+        .catch(function (error) {
+        console.log(error);
+    });
 };
 
-export function newPlaylist(){
+export function newPlaylist(name){
     // Make a playlist
+    axios.post('https://api.spotify.com/v1/users/'+user_id+'/playlists',{
+        name: name,
+    },header)
+        .then(function (response) {
+        console.log(response);
+    })
+        .catch(function (error) {
+        console.log(error);
+    });
 };
 
 export function addSong(){
