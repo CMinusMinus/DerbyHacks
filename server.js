@@ -10,11 +10,15 @@ var port = 80;
 app.use(morgan('dev'));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use('/', express.static(__dirname + '/src'));
+app.use('/', express.static(__dirname + '/'));
 
-app.get('/', function(req,res) {
-  res.sendFile(path.join(__dirname + 'index.html'));
+app.get('*', function(req,res) {
+  res.sendFile(path.join(__dirname + '/build/index.html'));
 });
+
+// app.get('/spotify', function(req, res, next) {
+//   res.send(req.query);
+// });
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
