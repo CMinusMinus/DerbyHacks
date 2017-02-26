@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './searchbar';
 
-import {getSongs} from './ajax';
+import {getSongs, getAuthorizeCode} from './ajax';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {AppBar} from 'material-ui';
@@ -27,6 +27,11 @@ class App extends React.Component {
 
     this.getResults = this.getResults.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  componentDidMount(){
+    if(window.location.pathname==="/spotify"){
+      getAuthorizeCode();
+    }
   }
 
   getResults() {
