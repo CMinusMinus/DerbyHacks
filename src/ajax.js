@@ -84,7 +84,10 @@ export function postRefresh(code, callback, errorCallback){
   // .then(callback)
   // .catch(errorCallback);
   axios.post('/api/postRefresh', {
-    code: code
+    code: code,
+    redirect_uri: redirect_uri,
+    client_id: client_id,
+    client_secret: client_secret
   })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
