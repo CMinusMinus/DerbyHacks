@@ -48,10 +48,6 @@ export function getSongs(query, callback){
   .then(axios.spread(callback));
 };
 
-export function getSong(){
-  // Parse results here?
-};
-
 // Spotify stuff
 export function authorize(){
   // Have them login and get authorized
@@ -68,12 +64,9 @@ export function authorize(){
 };
 
 export function getAuthorizeCode(){
-  axios.get('/spotify')
-  .then(function(response){
-    authVal = response.code;
-    console.log('code',response.code);
-    postRefresh(authVal);
-  });
+  authVal = window.location.search.substring(window.location.search.indexOf("code=")+5);
+  
+  postRefresh(authVal);
 }
 
 export function postRefresh(code){
@@ -86,7 +79,10 @@ export function postRefresh(code){
     client_secret: client_secret
   })
   .then(function (response) {
+    access=response.access_token;
+    refresh=response.refresh_token;
     console.log(response);
+    getUserID();
   })
   .catch(function (error) {
     console.log(error);
@@ -107,7 +103,7 @@ export function newPlaylist(name){
   });
 };
 
-export function getUserID(authVal){
+export function getUserID(){
   axios.get('https://api.spotify.com/v1/me',header)
   .then(function(response) {
     userID=response.id;
