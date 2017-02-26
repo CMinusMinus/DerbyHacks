@@ -1,7 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
-import { RaisedButton, TextField } from 'material-ui';
+import { RaisedButton, TextField, Paper } from 'material-ui';
 
 import { makePlaylist } from './ajax';
 
@@ -23,7 +23,8 @@ export default class Spotify extends React.Component {
   }
 
   handleClick(e) {
-    makePlaylist(this.state.value, (response) => {
+    const code = window.location.search.substring(window.location.search.indexOf('=') + 1);
+    makePlaylist(this.state.value, code, (response) => {
       this.setState({
         status: 'success'
       });
@@ -32,7 +33,7 @@ export default class Spotify extends React.Component {
 
   render() {
     return (
-      <div>
+      <Paper>
         <TextField
           onChange={this.handleChange}
           hintText="Name your playlist"
@@ -42,7 +43,7 @@ export default class Spotify extends React.Component {
           label="Create Playlist"
           onTouchTap={this.handleClick}
         />
-      </div>
+    </Paper>
     );
   }
 }

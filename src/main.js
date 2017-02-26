@@ -34,11 +34,6 @@ class App extends React.Component {
     this.getResults = this.getResults.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-  componentDidMount(){
-    if(window.location.pathname==="/spotify"){
-      getAuthorizeCode();
-    }
-  }
 
   getResults() {
     const results = getSongs(this.state.textValue, (pageOne, pageTwo) => {
@@ -56,8 +51,6 @@ class App extends React.Component {
   }
 
   render() {
-
-
     return (
         <div className="row">
           <AppBar

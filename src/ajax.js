@@ -69,7 +69,7 @@ export function getAuthorizeCode(){
   postRefresh(authVal);
 }
 
-export function postRefresh(code){
+export function postRefresh(code, callback, errorCallback){
   // Get refresh and Access tokens
   axios.post('https://accounts.spotify.com/api/token',{
     grant_type: 'authorization_code',
@@ -78,18 +78,11 @@ export function postRefresh(code){
     client_id: client_id,
     client_secret: client_secret
   })
-  .then(function (response) {
-    access=response.access_token;
-    refresh=response.refresh_token;
-    console.log(response);
-    getUserID();
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+  .then(callback)
+  .catch(errorCallback);
 };
 
-export function newPlaylist(name){
+export function newPlaylist(name, callback){
   // Make a playlist
   axios.post('https://api.spotify.com/v1/users/'+userID+'/playlists',{
     name: name,
@@ -138,11 +131,12 @@ export function findSong(title,artist){
   });
 };
 
-export function makePlaylist(value, callback) {
+export function makePlaylist(value, code, callback, errorCallback) {
   console.log(`You're trying to create a playlist named ${value}!`);
-  const response = {
-    status: "success"
-  }
-
-  callback(response);
-}
+  postRefresh(code, (response) => {
+    console.log(response);
+  },
+  (error) => {
+    console.log(error);
+  });
+};
