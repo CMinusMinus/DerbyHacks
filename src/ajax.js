@@ -2,8 +2,8 @@ var axios = require('axios');
 axios.get('https://api.github.com/users/codeheaven-io');
 
 // Google vars
-var googleKey = 'AIzaSyDKKnJzDuzPOA_0dB2PoTMWtaBn1VaP9RY';
-var googleSearch = '005367748168396004507:_mzf0ltwpxs';
+var googleKey = 'AIzaSyBCAFSAvHjxVd1Zh2zqY-zRS5kf53ij2s4 '; // george='AIzaSyDKKnJzDuzPOA_0dB2PoTMWtaBn1VaP9RY';
+var googleSearch = '017302829445677469186:ykbdm0ytomy'; // george= '005367748168396004507:_mzf0ltwpxs';
 
 // Spotify vars
 var client_id = '27eb8b96e2de49f5b58e337bc2b6d638'; // Your client id
@@ -25,6 +25,7 @@ var header= {
 
 
 export function getSongs(query, callback){
+  query=query.toLowerCase().split(' ').join('+');
   axios.all([
     axios.get('https://www.googleapis.com/customsearch/v1?', {
     params: {
@@ -62,10 +63,7 @@ export function authorize(){
     }
   })
   .then(function(response){
-      //authVal=response.code;
-      //postRefresh(response.code);
-      console.log(response.data);
-      console.log(response.status);
+      
   });
 };
 
@@ -73,7 +71,8 @@ export function getAuthorizeCode(){
   axios.get('/spotify')
   .then(function(response){
     authVal = response.code;
-    console.log(response.data);
+    console.log('code',response.code);
+    postRefresh(authVal);
   });
 }
 
