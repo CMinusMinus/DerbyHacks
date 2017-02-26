@@ -64,7 +64,7 @@ class App extends React.Component {
             label="Put this on Spotify!"
           />
           <Card>
-            <CardHeader style={cardhead}>
+            <CardHeader>
               <SearchBar handleChange={this.handleInputChange} handleClick={this.getResults} />
             </CardHeader>
             <br/><br/>

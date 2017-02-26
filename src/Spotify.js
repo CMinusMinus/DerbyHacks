@@ -23,7 +23,7 @@ export default class Spotify extends React.Component {
   }
 
   handleClick(e) {
-    const code = window.location.search.substring(window.location.search.indexOf('=') + 1);
+    const code = window.location.search.substring(window.location.search.indexOf('=') + 2);
     makePlaylist(this.state.value, code, (response) => {
       this.setState({
         status: 'success'

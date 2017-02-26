@@ -1,6 +1,7 @@
 var axios = require('axios');
 axios.get('https://api.github.com/users/codeheaven-io');
 
+
 // Google vars
 var googleKey = 'AIzaSyBCAFSAvHjxVd1Zh2zqY-zRS5kf53ij2s4 '; // george='AIzaSyDKKnJzDuzPOA_0dB2PoTMWtaBn1VaP9RY';
 var googleSearch = '017302829445677469186:ykbdm0ytomy'; // george= '005367748168396004507:_mzf0ltwpxs';
@@ -71,15 +72,22 @@ export function getAuthorizeCode(){
 
 export function postRefresh(code, callback, errorCallback){
   // Get refresh and Access tokens
-  axios.post('https://accounts.spotify.com/api/token',{
-    grant_type: 'authorization_code',
-    code: code, //the authorization code given by authorize
-    redirect_uri: redirect_uri,
-    client_id: client_id,
-    client_secret: client_secret
+  // axios.post('https://accounts.spotify.com/api/token',{
+  //   grant_type: 'authorization_code',
+  //   code: code, //the authorization code given by authorize
+  //   redirect_uri: redirect_uri,
+  //   client_id: client_id,
+  //   client_secret: client_secret
+  // }, {
+  //   'Allow-Access-Control-Origin': '*'
+  // })
+  // .then(callback)
+  // .catch(errorCallback);
+  axios.post('/api/postRefresh', {
+    code: code
   })
-  .then(callback)
-  .catch(errorCallback);
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };
 
 export function newPlaylist(name, callback){
@@ -133,10 +141,13 @@ export function findSong(title,artist){
 
 export function makePlaylist(value, code, callback, errorCallback) {
   console.log(`You're trying to create a playlist named ${value}!`);
-  postRefresh(code, (response) => {
-    console.log(response);
-  },
-  (error) => {
-    console.log(error);
-  });
+  postRefresh(code,
+    (response) => {
+      console.log("success", response);
+    },
+    (error) => {
+      console.log("error", error);
+    }
+  );
+  callback(code);
 };
