@@ -60,7 +60,7 @@ class App extends React.Component {
           />
           <br/>
           <RaisedButton
-            href="https://accounts.spotify.com/authorize?client_id=27eb8b96e2de49f5b58e337bc2b6d638&response_type=code&redirect_uri=http://localhost/spotify"
+            href="https://accounts.spotify.com/authorize?client_id=27eb8b96e2de49f5b58e337bc2b6d638&response_type=code&scope=playlist-modify-private&redirect_uri=http://localhost/spotify"
             label="Put this on Spotify!"
           />
           <Card>
