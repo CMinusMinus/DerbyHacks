@@ -56,16 +56,12 @@ class App extends React.Component {
   }
 
   render() {
-    const cardhead = {
-      marginRight: '30%',
-      marginLeft: '30%',
-      width: '40%'
-    }
 
 
     return (
-        <div>
+        <div className="row">
           <AppBar
+            className="small-12 large-12"
             title="Lyric Matchinator 3000"
             iconElementLeft={null}
           />
