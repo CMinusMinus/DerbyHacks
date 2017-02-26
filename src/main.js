@@ -2,15 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './searchbar';
 
+let extraLink = "https://accounts.spotify.com/authorize?client_id=27eb8b96e2de49f5b58e337bc2b6d638&response_type=code&redirect_uri=https://localhost/spotify";
+
 import {getSongs, getAuthorizeCode} from './ajax';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {AppBar} from 'material-ui';
+import { AppBar, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Results from './results';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+
+import { Router, DefaultRoute, Route, browserHistory } from 'react-router';
+
+import Spotify from './Spotify';
 
 
 // Needed for onTouchTap
@@ -58,13 +64,16 @@ class App extends React.Component {
 
 
     return (
-      <MuiThemeProvider>
         <div>
           <AppBar
             title="Lyric Matchinator 3000"
             iconElementLeft={null}
           />
           <br/>
+          <RaisedButton
+            href="https://accounts.spotify.com/authorize?client_id=27eb8b96e2de49f5b58e337bc2b6d638&response_type=code&redirect_uri=http://localhost/spotify"
+            label="Put this on Spotify!"
+          />
           <Card>
             <CardHeader style={cardhead}>
               <SearchBar handleChange={this.handleInputChange} handleClick={this.getResults} />
@@ -75,9 +84,17 @@ class App extends React.Component {
             </div>
           </Card>
         </div>
-      </MuiThemeProvider>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('react-container'));
+ReactDOM.render(
+  <MuiThemeProvider>
+    <Router history={browserHistory}>
+      <Route path="/" component={App} />
+      <Route path="/spotify" component={Spotify} />
+    </Router>
+  </MuiThemeProvider>
+  ,
+  document.getElementById('react-container')
+);

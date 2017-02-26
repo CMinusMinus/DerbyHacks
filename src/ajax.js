@@ -51,7 +51,7 @@ export function getSongs(query, callback){
 // Spotify stuff
 export function authorize(){
   // Have them login and get authorized
-  axios.get('https://localhost/https://accounts.spotify.com/authorize', {
+  axios.get('https://accounts.spotify.com/authorize', {
     params: {
       client_id: client_id,
       response_type: 'code',
@@ -59,13 +59,13 @@ export function authorize(){
     }
   })
   .then(function(response){
-      
+
   });
 };
 
 export function getAuthorizeCode(){
   authVal = window.location.search.substring(window.location.search.indexOf("code=")+5);
-  
+
   postRefresh(authVal);
 }
 
@@ -137,3 +137,12 @@ export function findSong(title,artist){
     addSong(response.uri);
   });
 };
+
+export function makePlaylist(value, callback) {
+  console.log(`You're trying to create a playlist named ${value}!`);
+  const response = {
+    status: "success"
+  }
+
+  callback(response);
+}

@@ -11,7 +11,7 @@ var port = 80;
 app.use(morgan('dev'));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use('/', express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/build'));
 
 
 app.set("views",path.join("./build"));
@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 
 
 app.get('*', function(req,res) {
-  res.render('index');
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
 
