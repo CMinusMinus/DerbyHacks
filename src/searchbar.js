@@ -10,14 +10,6 @@ export default class SearchBar extends React.Component {
   }
 
   render() {
-    const paper = {
-      height: '25%',
-      width: '60%',
-      marginLeft: '20%',
-      marginRight: '20%',
-      textAlign: 'center',
-      display: 'inline-block',
-    };
 
     return (
       <div>
