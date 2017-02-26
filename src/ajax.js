@@ -16,7 +16,7 @@ var userID;
 var playlistID;
 var header= {
   headers: {
-    'Authorization': authVal,
+    'Authorization': "Bearer "+authVal,
     'Content-Type': 'application/json'
   }
 };
@@ -128,12 +128,12 @@ export function findSong(title,artist){
   //find a song and add it to the playlist
   axios.get('https://api.spotify.com/v1/search',{
     params: {
-      q:'track:'+title+' artist:'+artist,
+      q:'track:'+title+'+artist:'+artist,
       type: track,
       limit: '1'
     }
   })
   .then(function(response){
-    addSong(response.uri);
+    addSong(response.tracks.items.uri);
   });
 };
