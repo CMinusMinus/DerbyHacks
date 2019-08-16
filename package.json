@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack && now",
     "start": "webpack && sudo node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,7 +29,8 @@
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-tap-event-plugin": "^2.0.1",
-    "serve-static": "^1.11.2"
+    "serve-static": "^1.11.2",
+    "now": "*"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
